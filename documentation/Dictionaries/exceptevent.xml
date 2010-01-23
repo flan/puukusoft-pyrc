@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<chapter id="dict-evt-except">
+	<title>Event Dictionary Exceptions</title>
+	<para>
+		This section contains a listing of all Event Dictionaries that are not
+		quite so simply sent to and from the IAL.
+	</para>
+	
+	<section id="eevt-emit-generic">
+		<indexterm type="dict-except">
+			<primary>Dictionaries - Exceptions</primary>
+		</indexterm>
+		<title>Emit Generic</title>
+		<para>
+			This dictionary is used to capture unrecognized commands the user
+			enters at a UI. It should only be sent to the IAL by UIs and
+			plugins that gather input directly from the user.
+		</para>
+		<para>
+			If untouched, this event will be seen by each plugin, but not the
+			UI, once before	it is converted into a
+			<link linkend="evt-in-irc-raw-command">IRC Raw Command</link>
+			dictionary and sent to the IRC server. If your plugin knows what to
+			do with the user's command, it should process it and either return
+			None if other plugins should be given a chance to evaluate its
+			contents, or return	a
+			<link linkend="eevt-raise-event">Raise Event</link> dictionary to
+			alter the processing flow.
+			<literallayout>
+	See also:
+	- <link linkend="eevt-emit-known">Emit Known</link>
+	- <link linkend="eevt-raise-event">Raise Event</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Emit Generic",
+ 'irccontext': <:int>,
+ 'target': <:unicode>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+target:
+	The location to which the event should be sent, if it is context-sensitive.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="eevt-emit-known">
+		<indexterm type="dict-except">
+			<primary>Dictionaries - Exceptions</primary>
+		</indexterm>
+		<title>Emit Known</title>
+		<para>
+			This dictionary is used to capture recognized commands the user
+			enters at a UI. It should only be sent to the IAL by UIs and plugins
+			that gather input directly from the user.
+		</para>
+		<para>
+			This dictionary will never actually be sent to any plugins. Instead,
+			it will be unwrapped, and the dictionary it contains will be made
+			accessible. This dictionary's sole purpose is to control the flow of
+			processing.
+			<literallayout>
+	See also:
+	- <link linkend="eevt-emit-generic">Emit Generic</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Emit Known",
+ 'eventdict': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+eventdict:
+	The known dictionary that is wrapped by this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="eevt-raise-event">
+		<indexterm>
+			<primary>Dictionaries - Exceptions</primary>
+		</indexterm>
+		<title>Raise Event</title>
+		<para>
+			This dictionary is not actually sent to or from the IAL. Instead, it
+			is returned when another dictionary is received if a plugin needs to
+			change the flow or subject of processing.
+		</para>
+		<para>
+			Raise Event dictionaries may be used to change the
+			<link linkend="dict-inbound">Inbound Event Dictionary</link> being
+			processed, to prevent a dictionary from being seen by any more
+			plugins, or to end processing altogether.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Raise Event",
+ 'behaviour': <"replace"|"skiprest"|"skipall">
+ 'eventdict': <:dict|None>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+behaviour:
+	This parameter must be one of three strings.
+	"replace":
+		Continue processing along the normal flow.
+		Replace the dictionary being processed with the one in 'eventdict'.
+	"skiprest":
+		Skip all remaining plugins in the processing flow.
+		If 'eventdict' is specified, it will replace the current dictionary.
+	"skipall":
+		End processing.
+		'eventdict' is not used.
+eventdict:
+	A spec-compliant Inbound Event Dictionary, or None if the current dictionary
+	should not be replaced.]]>
+			</programlisting>
+		</para>
+	</section>
+</chapter>

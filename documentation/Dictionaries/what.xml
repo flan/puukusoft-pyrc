@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<chapter id="dict-what">
+	<title>The Definition of a Dictionary</title>
+	
+	<para>Dictionaries are a special kind of object, not unlike Perl's hashes or
+	Java's hashmaps, which associate arbitrary data with keys. If the key is
+	known, the data associated with it may be quickly retrieved, like using a
+	language dictionary to find the definition associated with a word.</para>
+	
+	<para>In Python, everything is an object, and Python's dictionaries, which
+	are objects, may pair any two objects as key and data. This allows one data
+	type to contain all other data types, such as strings, numbers, lists,
+	functions, and even other dictionaries.</para>
+	
+	<para>Dictionaries, as stated, work on a system of keys. Suppose a
+	dictionary were defined as <code>x = {'one': 1, 'two': 2, 3: 'three'}</code>.
+	The keys here are <code>['one', 'two', 3]</code>, and they may be used like
+	<code>x['two']</code> to retrieve their data; this would return <code>2</code>.</para>
+	
+	<para>PyRC's API only uses strings as keys at the top level, but other
+	objects are used where appropriate, so knowing how to use dictionaries is
+	essential to developing useful plugins.</para>
+	
+	<para>This document exists to provide a reference for all dictionaries that
+	comprise PyRC's API, but it will assume knowledge of Python. For a more
+	gentle introduction, see the Plugin Development Handbook, available through
+	PyRC's documentation page.</para>
+</chapter>

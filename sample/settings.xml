@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE settings [
+	<!ELEMENT settings (options, formats, interface?, plugins, ctcps)>
+		<!ELEMENT options (irc, pyrc, dcc)>
+			<!ELEMENT irc (userinfo, defaultquitmessage, autoreconnect)>
+				<!ELEMENT userinfo (#PCDATA)>
+				<!ELEMENT defaultquitmessage (#PCDATA)>
+				<!ELEMENT autoreconnect (#PCDATA)>
+			<!ELEMENT pyrc (usepsyco, workerthreads, serverworkerthreads)>
+				<!ELEMENT usepsyco (#PCDATA)>
+				<!ELEMENT workerthreads (#PCDATA)>
+				<!ELEMENT serverworkerthreads (#PCDATA)>
+			<!ELEMENT dcc (localip?)>
+				<!ELEMENT localip (#PCDATA)>
+		<!ELEMENT formats (timestamp, datestamp, timedatestamp)>
+			<!ELEMENT timestamp (#PCDATA)>
+			<!ELEMENT datestamp (#PCDATA)>
+			<!ELEMENT timedatestamp (#PCDATA)>
+		<!ELEMENT interface (#PCDATA)> <!-- omit to use RawUI -->
+		<!ELEMENT plugins (plugin*)>
+			<!ATTLIST plugin load (yes|no) #IMPLIED> <!-- yes -->
+			<!ELEMENT plugin (#PCDATA)>
+		<!ELEMENT ctcps (ctcp*)>
+			<!ELEMENT ctcp (request, response)>
+				<!ATTLIST ctcp final (yes|no) #IMPLIED> <!-- no -->
+				<!ELEMENT request (#PCDATA)>
+				<!ELEMENT response (#PCDATA)>
+]>
+<settings>
+	<options>
+		<irc>
+			<userinfo>Some user-defined string.</userinfo>
+			<defaultquitmessage>It didn't crash, apparently -- PyRC 0.1.9</defaultquitmessage>
+			<autoreconnect>yes</autoreconnect>
+		</irc>
+		<pyrc>
+			<usepsyco>yes</usepsyco>
+			<workerthreads>3</workerthreads>
+			<serverworkerthreads>3</serverworkerthreads>
+		</pyrc>
+		<dcc/>
+	</options>
+	<formats>
+		<timestamp>%H:%M.%S</timestamp>
+		<datestamp>%d/%m/%Y</datestamp>
+		<timedatestamp>%c</timedatestamp>
+	</formats>
+	<interface>RawUI</interface>
+	<plugins/>
+	<ctcps/>
+</settings>

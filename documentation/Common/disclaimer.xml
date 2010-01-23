@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<section id="disclaimer">
+	<title>Disclaimer</title>
+	<para>Some of the software or hardware referenced in this document may be registered trademarks.
+	Names of such products and trademarks may fall under copyright restrictions.
+	All trade names are subject to copyright restrictions and are registered trademarks of their respective owners.
+	In citation of such names, Puukusoft, and those who have contributed to PyRC, have attempted to adhere to the owner's spelling and in no way make claim to any mentioned products.</para>
+	<para>THIS DOCUMENTATION IS PROVIDED BY THE AUTHORS <quote>AS-IS</quote> AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.
+	IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</para>
+	<para>This document is redistributable under the terms of the GNU Free Documentation License, found in <xref linkend="gfdl" />.</para>
+</section>

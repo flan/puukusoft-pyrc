@@ -1,0 +1,734 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<chapter id="dict-inbound">
+	<title>Inbound Event Dictionaries</title>
+	<para>
+		This section contains a listing of all Event Dictionaries sent to the
+		IAL. These are what plugins should send.
+	</para>
+	
+	<section id="evt-in-irc-channel-close">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Close</title>
+		<para>
+			This dictionary is sent to the IAL to leave a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Close",
+ 'irccontext': <:int>,
+ 'channel': <:unicode>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+channel:
+	The name of the channel to which this event will be sent.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-channel-join">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Join</title>
+		<para>
+			This dictionary is sent to the IAL to join a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Join",
+ 'irccontext': <:int>,
+ 'channel': <:unicode>,
+ 'password': <:unicode|None>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+channel:
+	The name of the channel to which this event will be sent.
+password:
+	The password used to join the channel, if any.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-channel-message">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Message</title>
+		<para>
+			This dictionary is sent to the IAL to send a message to a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Message",
+ 'irccontext': <:int>,
+ 'channel': <:unicode>,
+ 'message': <:unicode>,
+ 'action': <:bool>,
+ 'send': <:bool>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+channel:
+	The name of the channel to which this event will be sent.
+message:
+	The string this event was generated to convey.
+action:
+	True if this message is an action; False otherwise.
+send:
+	True if this message should be sent to the IRC server; False if it should
+	just be printed locally.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-ctcp-request">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - CTCP</primary>
+		</indexterm>
+		<title>IRC CTCP Request</title>
+		<para>
+			This dictionary is sent to the IAL to send a CTCP request to a user
+			or a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "CTCP Request",
+ 'irccontext': <:int>,
+ 'target': <:unicode>,
+ 'event': <:unicode>,
+ 'data': <:unicode|None>,
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+target:
+	The name of the target to which this event will be sent.
+event:
+	The token used to identify the nature of this CTCP event.
+data:
+	Any string data associated with this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-ctcp-response">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - CTCP</primary>
+		</indexterm>
+		<title>IRC CTCP Response</title>
+		<para>
+			This dictionary is sent to the IAL to send a CTCP response to a
+			user.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "CTCP Response",
+ 'irccontext': <:int>,
+ 'username': <:unicode>,
+ 'event': <:unicode>,
+ 'data': <:unicode|None>,
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+username:
+	The name of the user to whom this event will be sent.
+event:
+	The token used to identify the nature of this CTCP event.
+data:
+	Any string data associated with this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-ison-request">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Services</primary>
+		</indexterm>
+		<title>IRC IsOn Request</title>
+		<para>
+			This dictionary is sent to the IAL to ask an IRC server whether a
+			user is online or not.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "IsOn Request",
+ 'irccontext': <:int>,
+ 'username': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+username:
+	The name of the user whose online presence will be asserted.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-nickname-change">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC Nickname Change</title>
+		<para>
+			This dictionary is sent to the IAL to change PyRC's nickname.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Nickname Change",
+ 'irccontext': <:int>,
+ 'username': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+username:
+	The name PyRC will assume if the server approves this request.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-ping">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Ping</title>
+		<para>
+			This dictionary is sent to the IAL to send a PING request to a user
+			or the IRC server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Ping",
+ 'irccontext': <:int>,
+ 'target': <:unicode|None>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+target:
+	The name of the user or channel to which this event will be sent, or None if
+	the IRC server is to be PINGed.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-private-message">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC Private Message</title>
+		<para>
+			This dictionary is sent to the IAL to send a private message to a
+			user.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Private Message",
+ 'irccontext': <:int>,
+ 'username': <:unicode>,
+ 'message': <:unicode>,
+ 'action': <:bool>,
+ 'send': <:bool>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+username:
+	The name of the user to whom this event will be sent.
+message:
+	The string this event was generated to convey.
+action:
+	True if this message is an action; False otherwise.
+send:
+	True if this message should be sent to the IRC server; False if it should
+	just be printed locally.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-irc-raw-command">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Raw Command</title>
+		<para>
+			This dictionary is sent to the IAL to send a raw string directly to
+			an IRC server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Raw Command",
+ 'irccontext': <:int>,
+ 'data': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+data:
+	The name of the user to whom this event will be sent.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-plugin-disable">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Disable</title>
+		<para>
+			This dictionary is sent to the IAL to disable a plugin.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Disable",
+ 'module': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-plugin-enable">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Enable</title>
+		<para>
+			This dictionary is sent to the IAL to enable a plugin.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Enable",
+ 'module': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-plugin-load">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Load</title>
+		<para>
+			This dictionary is sent to the IAL to load a plugin.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Load",
+ 'module': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-plugin-reload">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Reload</title>
+		<para>
+			This dictionary is sent to the IAL to reload a plugin.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Reload",
+ 'module': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-plugin-status">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Status</title>
+		<para>
+			This dictionary is sent to the IAL when a plugin needs to inform the
+			user of something.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Status",
+ 'message': <:unicode>,
+ 'pluginname': <:unicode>,
+ 'pluginversion': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+message:
+	The string this event was generated to convey.
+pluginname:
+	A string containing the author-given name of the plugin.
+pluginversion:
+	A string containing the author-given version of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-quit">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Quit</title>
+		<para>
+			This dictionary is sent to the IAL to close PyRC.
+		</para>
+		<para>
+			This dictionary should only be sent by UIs.
+		</para>
+		<para>
+			Because of the UI-centric mainloop design of PyRC, UIs will need to
+			break their loop before this event is raised. This needs to be done
+			because the quit routine will execute asynchronously of any active
+			loops, so a looping UI might be locked into an endless input state.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "PyRC Quit",
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-register-autocompletion">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Register Autocompletion</title>
+		<para>
+			This dictionary is sent to the IAL to expand PyRC's tab completion
+			tree.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Register Autocompletion",
+ 'pattern': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+pattern:
+	A string containing a command pattern.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-set-environment-variable">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Set Environment Variable</title>
+		<para>
+			This dictionary is sent to the IAL to store a value in PyRC's
+			environment variable cache.
+		</para>
+		<para>
+			To avoid conflicts, variable names should be prefixed with the name
+			of the plugin that is setting them.
+			<literallayout>
+	See also:
+	- <link linkend="req-pyrc-get-environment-variables">PyRC Get Environment Variables</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Set Environment Variable",
+ 'variable': <:unicode>,
+ 'value': <:object>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+variable:
+	A string used to refer to the data that is being stored in PyRC's
+	environment variable cache.
+value:
+	The data that should be stored in PyRC's environment variable cache.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-toggle-raw-command-handling">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Toggle Raw Command Handling</title>
+		<para>
+			This dictionary is sent to the IAL to enable or disable generation
+			of <link linkend="evt-out-irc-raw-command">IRC Raw Command</link> Event Dictionaries at runtime.
+		</para>
+		<para>
+			Note: If the UI was started with the expectation of receiving Raw
+			Command events, this dictionary will do nothing.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Toggle Raw Command Handling",
+ 'enable': <:bool>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+enable:
+	True if Raw Command events should be enabled; False to disable.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-pyrc-toggle-raw-event-handling">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Toggle Raw Event Handling</title>
+		<para>
+			This dictionary is sent to the IAL to enable or disable generation
+			of <link linkend="evt-out-irc-raw-event">IRC Raw Event</link> Event Dictionaries at runtime.
+		</para>
+		<para>
+			Note: If the UI was started with the expectation of receiving Raw
+			Event events, this dictionary will do nothing.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Toggle Raw Event Handling",
+ 'enable': <:bool>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+enable:
+	True if Raw Event events should be enabled; False to disable.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-server-action">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Action</title>
+		<para>
+			This dictionary is sent to the IAL to indicate that the user has
+			performed an action, and that the user's idle counter should be
+			reset.
+		</para>
+		<para>
+			This event should be sent only by UIs, or by plugins that directly
+			receive user input.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Action",
+ 'irccontext': <:int>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-server-connect">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Connect</title>
+		<para>
+			This dictionary is sent to the IAL to connect to an IRC network.
+			<literallayout>
+	See also:
+	- <link linkend="evt-out-server-connection-error">Server Connection Error</link>
+	- <link linkend="evt-out-server-connection-success">Server Connection Success</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Connect",
+ 'address': <:unicode>,
+ 'port': <:int|None>,
+ 'ssl': <:bool>,
+ 'tryall': <:bool>,
+ 'proxy': <:unicode|None>,
+ 'nicknames': <:tuple|None>,
+ 'ident': <:unicode|None>,
+ 'realname': <:unicode|None>,
+ 'password': <:unicode|None>,
+ 'channels': <:tuple>,
+ 'profiles': <:tuple>,
+ 'options': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+address:
+	The URL of the IRC server to which a connection should be established.
+	
+	Users may create named collections of servers.
+	If this string is the name of such a collection, PyRC will automatically try
+	every server in the collection in an attempt to establish a connection.
+	If this string is the address of a server in a collection, PyRC will also
+	try every other server in the collection if the specified server fails.
+port:
+	The port on the IRC server to which a connection was established.
+	
+	If None, PyRC will attempt to use the ports specified in the IRC protocol.
+ssl:
+	True if a secure connection should be established.
+tryall:
+	True if all addresses should be tried if the given address is part of a
+	defined network; False if only the given address should be tried.
+	
+	This option is ignored if address is the name of a defined network.
+proxy:
+	The name of a pre-defined proxy, if proxy access is desired.
+nicknames:
+	A list of nicknames that PyRC should try, in order, when authenticating to
+	the IRC network.
+	
+	If None, PyRC will attempt to build a list from user-specified profiles.
+ident:
+	The ident string PyRC should use to authenticate to the IRC network.
+	
+	If None, PyRC will attempt to use the user-specified value for the network.
+realname:
+	The real name string PyRC should use to authenticate to the IRC network.
+	
+	If None, PyRC will attempt to use the user-specified value for the network.
+password:
+	The password needed to connect to the IRC network, if any.
+channels:
+	A list of channels to join upon successful connection.
+profiles:
+	A tuple containing the names of any profiles to use.
+options:
+	A dictionary containing any additional, generally PyRC-internal, details
+	that may affect the connection. At present, the following are supported::
+	 {
+	  'workerthreads': <:int>::
+	    The number of worker threads to spawn.
+	 }]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-server-disconnect">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Disconnect</title>
+		<para>
+			This dictionary is sent to the IAL to leave an IRC server, but keep
+			open the possibility of reconnecting without losing any gathered
+			information.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Disconnect",
+ 'irccontext': <:int>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-server-quit">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Quit</title>
+		<para>
+			This dictionary is sent to the IAL to leave an IRC server and free
+			all resources used to track its information.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Quit",
+ 'irccontext': <:int>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-in-server-reconnect">
+		<indexterm type="dict-inbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Reconnect</title>
+		<para>
+			This dictionary is sent to the IAL to reconnect to an IRC network
+			after a prior connection has been attempted.
+			<literallayout>
+	See also:
+	- <link linkend="evt-out-server-reconnection-error">Server Reconnection Error</link>
+	- <link linkend="evt-out-server-reconnection-success">Server Reconnection Success</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Reconnect",
+ 'irccontext': <:int>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection to which this event should be sent.]]>
+			</programlisting>
+		</para>
+	</section>
+</chapter>

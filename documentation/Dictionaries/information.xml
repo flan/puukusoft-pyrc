@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<chapter id="dict-info">
+	<title>Information Dictionaries</title>
+	<para>
+		This section contains a listing of all Information Dictionaries used to
+		provide commonly required information. These dictionaries are generally
+		received as part of Outbound Event Dictionaries.
+	</para>
+
+	<section id="inf-channel-data">
+		<indexterm type="dict-information">
+			<primary>Dictionaries - Information</primary>
+		</indexterm>
+		<title>Channel Data</title>
+		<para>
+			This dictionary contains all known information about a channel on an
+			IRC server, including a list of all its users.
+			<literallayout>
+	See also:
+	- <link linkend="req-irc-get-channel">IRC Get Channel</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'channel': <:unicode>,
+ 'topic': <:unicode|None>,
+ 'modes': <:tuple>,
+ 'modestring': <:unicode>,
+ 'modestringsafe': <:unicode>,
+ 'users': <:dict>
+}
+
+channel:
+	The name of the channel being described.
+topic:
+	The current topic of the channel, or None if no topic has been set.
+modes:
+	A tuple containing all modes currently set in the channel.
+	Its elements may be single-character mode tokens, or tuples containing a
+	mode token and a parameter token.
+modestring:
+	A string that represents all modes currently set in the channel.
+modestringsafe:
+	A string that represents all modes currently set in the channel, minus
+	those that contain sensitive information, like passwords.
+users:
+	A dictionary of ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionaries,
+	keyed by lowercase username.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="inf-server-data">
+		<indexterm type="dict-information">
+			<primary>Dictionaries - Information</primary>
+		</indexterm>
+		<title>Server Data</title>
+		<para>
+			This dictionary contains all known information about an IRC server.
+			<literallayout>
+	See also:
+	- <link linkend="req-irc-get-server">IRC Get Server</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'irccontext': <:int>,
+ 'networkname': <:unicode|None>,
+ 'groupname': <:unicode|None>,
+ 'username': <:unicode>,
+ 'ident': <:unicode|None>,
+ 'realname': <:unicode|None>,
+ 'address': <:unicode|None>,
+ 'port': <:int|None>,
+ 'localip': <:unicode>,
+ 'lastaction': <:float>,
+ 'modes': <:tuple>,
+ 'modestring': <:unicode>,
+ 'channels': <:dict>
+}
+
+irccontext:
+	The session-unique identifier of the server.
+networkname:
+	The name of the IRC network to which the server belongs, if connected.
+groupname:
+	The user-specified name of the network group, used to provide consistency to
+	plugins. May be None if the server is not part of a named group.
+username:
+	The nickname used by PyRC.
+ident:
+	The ident used by PyRC, if a connection has been attempted.
+realname:
+	The real name used by PyRC, if a connection has been attempted.
+address:
+	The address of the IRC server, if connected.
+port:
+	The port of the IRC server, if connected.
+localip:
+	The IP address associated with PyRC.
+lastaction:
+	The number of seconds that have elapsed since the user last acted on the IRC
+	server via PyRC.
+modes: 
+	A tuple of modes applied to PyRC by the IRC network.
+	Its elements may be single-character mode tokens or tuples containing a
+	single-character mode token and a single-token parameter.
+modestring:
+	A string that represents every mode currently set on PyRC.
+channels:
+	A dictionary of ]]><link linkend="inf-channel-data">Channel Data</link><![CDATA[ information dictionaries,
+	keyed by lowercase channel names.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="inf-user-data">
+		<indexterm type="dict-information">
+			<primary>Dictionaries - Information</primary>
+		</indexterm>
+		<title>User Data</title>
+		<para>
+			This dictionary contains all known information about a user on an
+			IRC server, optionally including channel-specific data.
+			<literallayout>
+	See also:
+	- <link linkend="req-irc-get-user">IRC Get User</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'username': <:unicode>,
+ 'ident': <:unicode|None>,
+ 'hostmask': <:unicode|None>,
+ 'realname': <:unicode|None>,
+ 'country': <:unicode>,
+ 'ircserver': <:unicode|None>,
+ 'lastactionglobal': <:float|None>,
+ 'lastactionchannel': <:float|None>,
+ 'symbol': <:unicode|None>
+}
+
+username:
+	The nickname of the user being described.
+ident:
+	The ident of the user, if known.
+hostmask:
+	The hostmask of the user, if known.
+realname:
+	The real name supplied by the user, if known.
+country:
+	The user's country, based on a TLD lookup.
+ircserver:
+	The URL of the IRC server to which the user is connected, if known.
+lastactionglobal:
+	The time at which the user last performed an action anywhere, if known.
+	Expressed as a UNIX timestamp.
+lastactionchannel:
+	The time at which the user last performed an action in a channel, if known.
+	Expressed as a UNIX timestamp.
+	
+	This field will never be filled in non-channel-specific contexts.
+symbol:
+	The dominant rank symbol attached to the user, if any.
+	If not None, its length is always one character.
+	
+	This field will never be filled in non-channel-specific contexts.]]>
+			</programlisting>
+		</para>
+	</section>
+</chapter>

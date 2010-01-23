@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE profiles [
+	<!ELEMENT profiles (profile*)>
+		<!ELEMENT profile (nicknames, ident, realname)>
+			<!ATTLIST profile id ID #REQUIRED> <!-- must be lower-case -->
+			<!ELEMENT nicknames (nickname+)>
+				<!ELEMENT nickname (#PCDATA)> <!-- must be one token -->
+			<!ELEMENT ident (#PCDATA)>
+			<!ELEMENT realname (#PCDATA)>
+]>
+<profiles>
+	<profile id="default">
+		<nicknames>
+			<nickname>PyRC</nickname>
+		</nicknames>
+		<ident>flonne</ident>
+		<realname>Red HamsterX</realname>
+	</profile>
+</profiles>

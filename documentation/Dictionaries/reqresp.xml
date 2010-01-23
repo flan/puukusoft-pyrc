@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<chapter id="dict-reqresp">
+	<title>Request and Response Dictionaries</title>
+	<para>
+		Request and response dictionaries work in pairs. When a request
+		dictionary is passed to the IAL, a response dictionary containing the
+		requested information is directly returned. Unlike event dictionaries,
+		nothing may be seen by the plugins, and no external actions will occur.
+		<note>
+			<para>
+				If a request fails, probably due to an invalid argument, None is
+				returned.
+			</para>
+		</note>
+	</para>
+	
+	<section id="req-irc-get-channel">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Get Channel</title>
+		<para>
+			This dictionary is used to find out all known details about a
+			channel on an IRC network.
+			<literallayout>
+	See also:
+	 - <link linkend="req-irc-get-channels">IRC Get Channels</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Channel",
+ 'irccontext': <:int>,
+ 'channel': <:basestring>
+}
+
+eventname:
+	The IAL-recognized name of this request.
+irccontext:
+	The session-unique identifier of the server from which data should be
+	retrieved.
+channel:
+	The name of the channel to be described.
+
+Response:
+	{
+	 'channel': <:dict>
+	}
+	
+	channel:
+		An instance of the ]]><link linkend="inf-channel-data">Channel Data</link><![CDATA[ information dictionary
+		containing all information known about the specified channel.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-irc-get-channels">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Get Channels</title>
+		<para>
+			This dictionary is used to find out all known details about all
+			known channels on an IRC network.
+			<literallayout>
+	See also:
+	 - <link linkend="req-irc-get-channel">IRC Get Channel</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Channels",
+ 'irccontext': <:int>
+}
+
+eventname:
+	The IAL-recognized name of this request.
+irccontext:
+	The session-unique identifier of the server from which data should be
+	retrieved.
+
+Response:
+	{
+	 'channels': <:dict>
+	}
+	
+	channels:
+		A dictionary containing instances of ]]><link linkend="inf-channel-data">Channel Data</link><![CDATA[ information dictionaries,
+		keyed by channel names.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-irc-get-channel-modes">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Get Channel Modes</title>
+		<para>
+			This dictionary is used to retrieve the modes currently set on a
+			channel on an IRC network.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Channel Modes",
+ 'irccontext': <:int>,
+ 'channel': <:basestring>
+}
+
+eventname:
+	The IAL-recognized name of this request.
+irccontext:
+	The session-unique identifier of the server from which data should be
+	retrieved.
+channel:
+	The name of the channel to be described.
+
+Response:
+	{
+	 'modes': <:tuple>,
+	 'modestring': <:unicode>,
+	 'modestringsafe': <:unicode>
+	}
+	
+	modes:
+		A tuple of modes currently set on the channel.
+		Its elements may be either single-character mode tokens, or tuples
+		containing a single-character mode token and a single-token parameter.
+	modestring:
+		A string containing the modes currently set on the channel, expressed as
+		a string.
+	modestringsafe:
+		A variant of modestring that omits sensitive modes like the channel key.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-irc-get-channel-users">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Get Channel Users</title>
+		<para>
+			This dictionary is used to find out all known details about all
+			users in a channel on an IRC network.
+			<literallayout>
+	See also:
+	 - <link linkend="req-irc-get-channel">IRC Get Channel</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Channel Users",
+ 'irccontext': <:int>,
+ 'channel': <:basestring>
+}
+
+eventname:
+	The IAL-recognized name of this request.
+irccontext:
+	The session-unique identifier of the server from which data should be
+	retrieved.
+channel:
+	The name of the channel to be described.
+
+Response:
+	{
+	 'users': <:dict>
+	}
+	
+	users:
+		A dictionary containing instances of ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionaries,
+		keyed by lowercase usernames.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-irc-get-current-nickname">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC Get Current Nickname</title>
+		<para>
+			This dictionary is used to find out the nickname currently in use by
+			PyRC on an IRC network.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Current Nickname",
+ 'irccontext': <:int>
+}
+
+eventname:
+	The IAL-recognized name of this request.
+irccontext:
+	The session-unique identifier of the server from which data should be
+	retrieved.
+	
+Response:
+	{
+	 'username': <:unicode>
+	}
+	
+	username:
+		The nickname currently in use by PyRC on the specified IRC network.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-irc-get-network-names">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - IRC</primary>
+		</indexterm>
+		<title>IRC Get Network Names</title>
+		<para>
+			This dictionary is used to get an enumeration of network ID numbers
+			to network names.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Network Names"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+	
+Response:
+	{
+	 'networks': <:dict>
+	}
+	
+	networks:
+		A dictionary containing {<id_number:int>: <network_name:unicode>}
+		elements.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-irc-get-server">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Get Server</title>
+		<para>
+			This dictionary is used to find out all known details about an IRC
+			network.
+		</para>
+		<para>
+			The object returned by this request may be rather large, since it
+			references a lot of volitile information, making caching
+			inefficient. Only request it if necessary, and do not assign it to a
+			permanent variable.
+			<literallayout>
+	See also:
+	 - <link linkend="req-irc-get-servers">IRC Get Servers</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Server",
+ 'irccontext': <:int>
+}
+
+eventname:
+	The IAL-recognized name of this request.
+irccontext:
+	The session-unique identifier of the server from which data should be
+	retrieved.
+
+Response:
+	{
+	 'server': <:dict>
+	}
+	
+	server:
+		An instance of the ]]><link linkend="inf-server-data">Server Data</link><![CDATA[ information dictionary
+		containing all information known about the specified network.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-irc-get-servers">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Get Servers</title>
+		<para>
+			This dictionary is used to find out all known details about all
+			known IRC networks.
+		</para>
+		<para>
+			The object returned by this request will be very large, since it
+			references a lot of volitile information, making caching
+			inefficient. Only request it if necessary, and do not assign it to a
+			permanent variable.
+			<literallayout>
+	See also:
+	 - <link linkend="req-irc-get-server">IRC Get Server</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Servers"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'servers': <:dict>
+	}
+	
+	server:
+		A dictionary containing instances of ]]><link linkend="inf-server-data">Server Data</link><![CDATA[ information dictionaries,
+		keyed by server IDs.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-irc-get-user">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC Get User</title>
+		<para>
+			This dictionary is used to find out all known details about a
+			user on an IRC network.
+			<literallayout>
+	See also:
+	 - <link linkend="req-irc-get-channel-users">IRC Get Channel Users</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get User",
+ 'irccontext': <:int>,
+ 'channel': <:basestring|None>,
+ 'username': <:basestring>
+}
+
+eventname:
+	The IAL-recognized name of this request.
+irccontext:
+	The session-unique identifier of the server from which data should be
+	retrieved.
+channel:
+	The name of a channel in which the user resides, if channel-specific
+	information is desired.
+username:
+	The name of the user to be described.
+
+Response:
+	{
+	 'user': <:dict>
+	}
+	
+	user:
+		An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary
+		containing all information known about the specified user.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-plugin-get-all-plugin-names">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Plugin</primary>
+		</indexterm>
+		<title>Plugin Get All Plugin Names</title>
+		<para>
+			This dictionary is used to get the module names (directory subpaths)
+			of all plugins.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get All Plugin Names"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'plugins': <:tuple>
+	}
+	
+	plugins:
+		A tuple containing a list of plugin module names.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-plugin-get-loaded-plugin-information">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Plugin</primary>
+		</indexterm>
+		<title>Plugin Get Loaded Plugin Information</title>
+		<para>
+			This dictionary is used to get information about all loaded plugins.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Loaded Plugin Information"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'plugins': <:dict>
+	}
+	
+	plugins:
+		A dictionary containing a list of plugin information dictionaries, keyed
+		by plugin module name (directory subpath).
+		
+		The elements of this dictionary have the following form:
+		 {
+		  <module_name:unicode>: {
+		   'pluginname': <:unicode>,
+		   'version': <:unicode>,
+		   'enabled': <:bool>,
+		   'data': <:dict>,
+		   'plugin': <:module>
+		  }
+		 }]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-plugin-get-unloaded-plugin-names">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - Plugin</primary>
+		</indexterm>
+		<title>Plugin Get Unloaded Plugin Names</title>
+		<para>
+			This dictionary is used to get the module names (directory subpaths)
+			of all unloaded plugins.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Unloaded Plugin Names"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'plugins': <:tuple>
+	}
+	
+	plugins:
+		A tuple containing a list of plugin module names.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-pyrc-get-autocompletion">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Get Autocompletion</title>
+		<para>
+			This dictionary is used to get a list of all tokens that can be
+			placed at the end of a given input string, which has itself been
+			tokenized. This is most useful for Tab-completion.
+		</para>
+		<section id="advice-rec-pyrc-get-autocompletion">
+			<title>Advice</title>
+			<para>
+				If the user placed a space at the end of the input string, append
+				an empty string to the end of the list.
+			</para>
+			<para>
+				When tokens are returned, cache them and keep cycling every time
+				the user presses Tab; stop when the user moves the cursor or
+				presses another key.
+			</para>
+			<para>
+				Allow the user to choose an arbitrary token in the input as the
+				completion target: find the cursor position and count up to the
+				token it's sitting on, then replace it.
+			</para>
+			<para>
+				It might be a good idea to treat all text in quotes as a single
+				token. If the user is Tab-completing such a string, chances are
+				it's a filepath, and therefore worth the extra cycles.
+			</para>
+		</section>
+		<para>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Autocompletion",
+ 'tokens': <:tuple>,
+ 'irccontext': <:int>,
+ 'focus': <:unicode|None>
+}
+
+eventname:
+	The IAL-recognized name of this request.
+tokens:
+	A list of pre-split tokens that represent text leading up to the token that
+	needs to be auto-completed.
+	
+	If the last token is a non-empty string, it will be used as the base for
+	finding matching tokens. If the last token is an empty string, all possible
+	following tokens will be returned.
+irccontext:
+	The session-unique ID of the connection to use for resolving tokens.
+focus:
+	The name of the channel or, in the case of a query, the user with which PyRC
+	is interacting. None if there is no current focus. 
+	
+Response:
+	{
+	 'tokens': <:tuple>
+	}
+	
+	tokens:
+		A list of all tokens that can fit into the final slot.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-pyrc-get-environment-variables">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Get Environment Variables</title>
+		<para>
+			This dictionary is used to get a collection of all environment
+			variables currently set within PyRC.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Environment Variables"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'architecture': <:unicode>,
+	 'ispsyco': <:bool>,
+	 'operatingsystem': <:unicode>,
+	 'iswindows': <:bool>,
+	 <variable_name:unicode>: <variable_value:object>
+	}
+	
+	architecture:
+		The type of hardware PyRC is currently running on.
+	ispsyco:
+		True if PyRC is using Psyco.
+	operatingsystem:
+		The name of the operating system on which PyRC is running.
+	ismicrosoft:
+		True if PyRC is running on a Microsoft operating system.
+	<variable_name>:
+		The environment variables collection is shared between plugins, so every
+		author-defined environment variable will appear here.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-pyrc-get-ping-thresholds">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Get Ping Thresholds</title>
+		<para>
+			This dictionary is used to get information about how PyRC times PING
+			events.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Ping Thresholds"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'waittime': <:int>,
+	 'timeout': <:int>
+	}
+	
+	waittime:
+		The number of seconds PyRC will wait for some sign of server
+		connectivity before sending a PING.
+	timeout:
+		The number of seconds that PyRC will wait for a PONG before considering
+		a PING lost.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-pyrc-get-quit-message">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Get Quit Message</title>
+		<para>
+			This dictionary is used to get the user-defined quit message.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Quit Message"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'quitmessage': <:unicode>
+	}
+	
+	quitmessage:
+		The user-specified quit message.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-pyrc-get-root-path">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Get Root Path</title>
+		<para>
+			This dictionary is used to get the path in which PyRC is located.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Root Path"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'path': <:unicode>
+	}
+	
+	path:
+		The path in which PyRC is located.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-pyrc-get-user-formats">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Get User Formats</title>
+		<para>
+			This dictionary is used to get a collection of all user-specified
+			data formats. Its primary purpose will be for localizing PyRC.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get User Formats"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 <format_name:unicode>: <format_value:unicode>
+	 ...
+	}
+	
+	<format_name>:
+		Every named format supported by PyRC.
+		This list includes the following, though it is not finalized:
+			timestamp:
+				A format recognized by Python's time.strftime for the H:M.S
+				component of a timestamp.
+			datestamp:
+				A format recognized by Python's time.strftime for the D/M/Y
+				component of a timestamp.
+			timedatestamp:
+				A format recognized by Python's time.strftime for a timestamp.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-pyrc-get-user-path">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Get User Path</title>
+		<para>
+			This dictionary is used to get the user-specific PyRC config path.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get User Path"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'path': <:unicode>
+	}
+	
+	path:
+		The user-specific PyRC config path.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="req-pyrc-get-version">
+		<indexterm type="dict-reqresp">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Get Version</title>
+		<para>
+			This dictionary is used to get a collection of details related to
+			the running version of PyRC.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Get Version"
+}
+
+eventname:
+	The IAL-recognized name of this request.
+
+Response:
+	{
+	 'name': <:unicode>,
+	 'version': <:unicode>,
+	 'url': <:unicode>,
+	 'irc': <:unicode>,
+	 'license': <:unicode>,
+	 'maintainers': <:dict>
+	}
+	
+	name:
+		The name of PyRC. This will always be "PyRC" by default.
+	version:
+		A major.minor.revision set of numbers that identifies the current
+		version of PyRC.
+	url:
+		The web address at which the PyRC project can be found.
+	irc:
+		The IRC channel in which PyRC's main development takes place.
+	license:
+		The license under which PyRC is distributed.
+	maintainers:
+		A dictionary of tuples containing the names of PyRC's maintainers, keyed
+		by role.
+		
+		At present, the following roles are defined:
+		 artists
+		 authors
+		 documenters]]>
+			</programlisting>
+		</para>
+	</section>
+</chapter>

@@ -1,0 +1,29 @@
+PyRC project goals:
+	PyRC aims to be an exceedingly flexible, and truly "free", IRC client
+	while avoiding design flaws which could compromise stability or
+	security.
+	
+	Where ease of use and performance come into conflict at the design
+	level, preference will be given to ease of use. After all, these days,
+	users expect to be catered to, and a small (I'll make a concerted effort
+	to minimize it wherever humanly possible) hit to performance over
+	functionality is pretty acceptable. Heck, a lot of them use Windows --
+	if they're willing to sacrifice that much of their system already,
+	what's an IRC client that has a few extra K of overhead per hundred
+	users in a channel?
+	
+PyRC Project Team:
+	Programming:
+		Programming Lead: Neil Tallim (Red HamsterX)
+	
+	Documentation:
+		Documentation Lead: Neil Tallim (Red HamsterX)
+		Editing Lead: Neil Tallim (Red HamsterX)
+	
+	Design:
+		Project Planning: Neil Tallim (Red HamsterX)
+		Component Design: Neil Tallim (Red HamsterX)
+		PyRC GUI Design: Neil Tallim (Red HamsterX)
+				Shane Crues (TehKoi)
+		PyRC CLI Design: Neil Tallim (Red HamsterX)
+The PyRC project is seeking assistance.

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<chapter id="dict-why">
+	<title>The Reason PyRC's API is Based on Dictionaries</title>
+	<para>PyRC, as a project, seeks to achieve a few key goals:
+		<itemizedlist>
+			<listitem>Developing a programmer-friendly library that is there when needed, and out of mind when not</listitem>
+			<listitem>Creating a consistent, maintainable developer interface</listitem>
+			<listitem>Producing a flexible, adaptable framework</listitem>
+		</itemizedlist>
+	These goals are considered important because PyRC's development team
+	believes that the sustainability of a software project of any real scale is
+	entirely dependent on the developer community that it attracts.</para>
+
+	<para>If external developer innovation isn't there, no matter how
+	well-written the framework may be, users won't care, and the project will
+	fail. With this in mind, PyRC seeks to provide, not bludgeon, its comunity
+	with the tools needed to develop useful, intuitive interfaces, using
+	resources with which they are already familiar.</para>
+	
+	<para>Of course, even given familiar tols, there is still learning involved
+	in the adoption of any framework. To ease this process, PyRC's development
+	team has chosen to use dictionaries as the standard means of accessing
+	PyRC's API. By using a standardized set of keys, it has proven easy to
+	minimize surprises in the API and to decrease the amount of reading involved
+	before a new call can be used properly. Additionally, this leaves existing
+	API calls free to expand, without breaking backwards compatibility, since
+	new keys can simply be added when needed.</para>
+	
+	<para>In summary, dictionaries, while arguably not the most efficient data
+	type, provide a very convenient and effective means of passing data and
+	commands between PyRC and its community-developed plugins. They are easy to
+	use, easy to read, and easy to extend. They neatly fit into the goals of the
+	PyRC project, and that's why they were chosen.</para>
+</chapter>

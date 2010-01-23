@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<chapter id="dict-how">
+	<title>How to Read this Document</title>
+	
+	<para>PyRC works through use of something the development team has named the
+	IRC Abstraction Layer (IAL). Simply put, the IAL is exposed to plugins as a
+	function that accepts API dictionaries and processes them to perform
+	actions. These actions might involve sending messages to an IRC server, or
+	they might be requests for information from PyRC's core.</para>
+	
+	<para>The IAL will also send dictionaries to developer-specified functions
+	in plugins when hooked events occur, effectively making it an alternate I/O
+	source. (In fact, you can, and should, write your plugins so they are
+	standalone applications that just know how to work with the IAL)</para>
+	
+	<para>The structure of a normal dictionary entry follows:</para>
+	
+	<section id="how-sample-1">
+		<title>Generic Dictionary - Structure</title>
+		<para>
+			Dictionary description
+			<literallayout class="monospaced">
+	Additional information
+			</literallayout>
+			<programlisting>
+<![CDATA[	{
+	 <parameter 1>: <value|:type>,
+	 ...
+	 <parameter n>: <value|:type>
+	}
+	
+	parameter 1:
+		Explanation.
+	...
+	parameter n:
+		Explanation.]]>
+			</programlisting>
+		</para>
+	</section>
+	<para><quote>&lt;</quote> and <quote>&gt;</quote> indicate required elements, <quote>[</quote> and <quote>]</quote> indicate optional elements, and <quote>|</quote> indicates that only one of the group will be present.</para>
+	
+	<para>An example based on this structure follows:</para>
+	<section id="how-sample-2">
+		<title>Generic Dictionary - Sample</title>
+		<para>
+			This dictionary is received from the IAL when a user in a channel
+			says something.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-message-local">IRC Channel Message Local</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[	{
+	 'eventname': "Channel Message",
+	 'irccontext': <:int>,
+	 'networkname': <:unicode>,
+	 'channel': <:unicode>,
+	 'message': <:unicode>,
+	 'action': <:boolean>,
+	 'userdata': <:Dictionary>
+	}
+	
+	eventname:
+		The IAL-recognized name of this event.
+	irccontext:
+		The session-unique ID of the IRC connection that sent this event.
+	networkname:
+		The name of the IRC network that sent this event.
+	channel:
+		The name of the channel where this event originated.
+	message:
+		The string this event was generated to convey.
+	action:
+		True if this event represents an action.
+	userdata:
+		An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+		information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<para>And, finally, this is what an instance of the dictionary might look
+	like:</para>
+	<section id="how-sample-3">
+		<title>Generic Dictionary - Example</title>
+		<programlisting>
+<![CDATA[{
+ 'eventname': 'Channel Message',
+ 'irccontext': 1,
+ 'networkname': 'ZiRC',
+ 'channel': '#animesuki.os',
+ 'message': 'Hello, World!'
+ 'action': False,
+ 'userdata': {
+  'ident': "~flan",
+  'hostmask': "cg.shawcable.net",
+  'country': "Network/Unknown",
+  'realname': "Neil Tallim",
+  'ircserver': "irc.zirc.org",
+  'lastevent': "16:24.12, September 20, 2004",
+  'username': "flan"
+ }
+}]]>	
+		</programlisting>
+	</section>
+</chapter>

@@ -1,0 +1,174 @@
+Common functions for scripters
+	whoAmI(contextID) = current nick
+	
+Standalone Python Source Scanner:
+	Scans Python directories recursively and generates warnings with severity
+	levels.
+	Writes temp files with sha-1 per-line hashes in the event of an abort;
+	temp files begin with the last modified timestamp of the file being scanned.
+	If the timestamp differs, the sha-1 hashes are ignored -- sha-1 hashes are
+	used to skip lines that have already been passed by the user.
+		 
+         
+Can't cEventUser on a split.
+17:57.34 (i) BriteDarkness[
+              [equilibrium.hub.eu.zirc.org ferret.uk.eu.zirc.org]
+              
+
+GUI behaviour:
+F# to jump to server #; alt+# to jump to channel #
+
+codEvent -> dictionary for all numbers + regexps for parsing
+
+
+Use regexp objects for highlighting. | is a delimiter.
+Let user specify one string, like "flan|rhx". Wrap in a regexp search/match/compiled object.
+"(?:(?:flan|rhx)[,:]|, (flan|rhx))" is ideal.
+
+Only read the server config file when using /server or listing/updating its contents.
+Do not store the values in memory. Only use them to check for bindings before trying a DNS resolve.
+If a parameter is set in the config file, but not set in the input, assume the config file's value; assume the given value in the event of a conflict.
+[ZiRC] may have multiple addresses associated with it.
+For each address beyond the first, tag it and its parameters with a number (port, port1, port2). These numbers will be popped off when read and arranged by int() value (so 1 = 01).
+Use this methodology for perform, too.
+
+Plugins are now threadsafe. Mention this in the docs.
+
+
+
+DCC file objects, when active, should only have abort and poll methods.
+They should broadcast their status at fixed intervals/milestones.
+
+DCC chat objects just need send and abort. They'll broadcast on receipt.
+
+
+When changing to a PM in the GUI, set the right scrollbar all the way to the right.
+Restore it to its original position if it hasn't been changed by the user.
+(Set its contents to the user's name and the name of the person the user is speaking to)
+
+
+Detached windows will behave exactly like normal windows, but they'll detatch at a node, like a channel or a server.
+
+Change Ping to Lag when a ping request automated is raised.
+
+Update the Ping value every time the server is pinged or every half hour, whichever comes first.
+
+Subclass textview and overwrite the word-wrap function with a text indent.
+
+
+
+TextTag : http://www.pygtk.org/pygtk2reference/class-gtktexttag.html
+
+Toss colour data into wOR.
+Build an object for it on startup.
+
+
+AI gets better at fighting enemies after defeating others of their kind (they gain more access to the profile data). Groups share properties.
+
+Engine attribute: Each character/unit/whatever can have one or more area-of-effect auras that stack with like nearby auras.
+These will affect every unit standing on them, granting, for example, immunity to fire to enemies and allies alike.
+This can allow magically disinclined units to travel under the protection of mages.
+However, conflicting auras should cancel each other out.
+
+When casting spells, MP cost should be consistent (+/- a tiny amount) across power levels.
+Instead of taking more MP, spells should take more time to prepare.
+Spells may be interrupted prematurely, but they'll only have half the power of the level to which they were charged.
+
+When initializing the engine, pass in the required level data, the active character and item data, and any relevant event data.
+Call its 'run()' method.
+It will return updated character and item data and any new events which have occurred.
+This will make it possible to couple the engine with any interface module, and it will make it possible to use any interface module with any other engine.
+
+Engine feature: falling columns.
+When special columns have taken on a certain amount of weight, or another scripted/attack-initiated event occurs, they should fall to ALT:0.
+This will effectively remove units from combat, unless they have insane jumping or teleporting abilities.
+This should also trigger a three-turn stun effect, possibly with some damage, depending on the terrain (rocks hurt).
+On recovering, mages should be able to cast spells as normal (assuming their sphere reaches high enough), but the trapped units can also be targetted by mages.
+Of course, it's possible to place treasure in a location that can only be reached by letting a unit fall, or to place stairs out of the pit.
+
+
+
+AI groups and spontaneous joint operations.
+Each AI unit should have an intelligence level tag -- describe these tomorrow.
+
+
+
+Tank-chans' contour vertices should change with modifications made to parameters.
+Bigger engines for increased speed.
+Larger wings and less body for increased manuverability.
+Larger weapon mount points for increased attack.
+Larger plating and more round shape for increased shielding.
+
+
+tr.x td{} - applies pattern to all tds under tr.
+td:first-child
+td+td?
+
+
+
+/mode #animesuki.os +b
+View bans.
+
+
+
+three-column table (time, name, text) + VScrollbar?
+
+Nah.
+One-column list with HBoxes.
+Allows for more dynamic sizing.
+
+On creation of list, generate iter with model.get_iter_first()
+To remove, iter = model.remove(iter)
+To add, model.append(hbox)
+
+Boxes should have two labels: ((timestamp, name), (text))
+label.set_selectable(True)
+
+http://www.pygtk.org/docs/pygtk/class-gtktreeview.html#method-gtktreeview--scroll-to-cell
+use_align=True
+row_align=0
+
+
+UIs should have an event level table that can be manipulated by the user.
+Level 0: Default handling
+Level 1: Default handling + print message, if any, to current context(s)
+Level 2: Default handling + print message, if any, to all contexts
+
+
+Child windows should clone network nodes.
+gtk.TextBuffer.insert_with_tags_by_name
+http://www.pygtk.org/docs/pygtk/class-gtktreemodel.html#method-gtktreemodel--get-iter-root
+
+Make treeview dual-value and just avoid assigning a renderer to the second thing?
+
+Contexts need to contain the following:
+ buffer
+ irc_context
+ focus
+ 
+ Write a manager that maintains references by iter and by irc:focus? (Two dictionaries)
+
+Child windows should each get only one network node. The same node may be cloned across multiple children.
+Or maybe they should have root status nodes that reflect the events of the main window that can be joined by multiple network nodes.
+
+Or maybe they should have a root status node and be able to take any focuses, building intermediate network nodes as they go.
+
+...Should DCCs be a child of status?
+It kinda seems like they should, given that they're network-less.
+
+http://pygtk.org/pygtkspell/class-gtkspell.html
+http://pygtk.org/docs/pygtk/class-gtkaboutdialog.html
+
+http://www.moeraki.com/pygtkreference/pygtk2reference/class-gdkwindow.html#method-gdkwindow--move-resize
+http://www.moeraki.com/pygtkreference/pygtk2reference/class-gdkwindow.html#method-gdkwindow--set-back-pixmap
+TextTag tabs/indent/paragraph? Write timestamp/name, then texttag remainder of input as an indented paragraph?
+
+Needs some way to pull timeout information from GLOBAL to set the progress bar.
+
+http://faq.pygtk.org/index.py?req=show&file=faq14.026.htp
+
+http://faq.pygtk.org/index.py?req=show&file=faq23.042.htp
+http://faq.pygtk.org/index.py?req=show&file=faq23.018.htp
+http://faq.pygtk.org/index.py?req=show&file=faq14.025.htp
+
+

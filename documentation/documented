@@ -1,0 +1,27 @@
+These files have proper docstrings
+"""
+A description.
+-
+input: A blah
+-
+Returns a better blah
+"""
+
+interpreter (Needs comments)
+
+ircAbstract.ctcpCore (Needs DCC implementation and documentation)
+
+ircAbstract.usrFunctions
+ircAbstract.ircUser
+ircAbstract.tldTable
+ircAbstract.codEvents
+control.asynch
+control.rawUI
+ircAbstract.ircChannel
+ircAbstract.ircInterface (Needs function sorting and cleanup)
+
+control.plugin
+control.errlog
+
+Replace the dictionary 'in' -> 'access' pattern with .get() wherever possible.
+This should save a lot of lookup time.

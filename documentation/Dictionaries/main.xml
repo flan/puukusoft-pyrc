@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<book>
+	<title>PyRC Dictionary Catalogue</title>
+	
+	<toc />
+	
+	<preface id="preface">
+		<title>Preface</title>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Common/conventions.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Common/disclaimer.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+	</preface>
+	
+	<!-- Include the main chapters -->
+	<part id="intro">
+		<title>Introduction</title>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="why.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="what.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="how.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+	</part>
+	
+	<part id="listings">
+		<title>Dictionary Listings</title>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="outbound.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="inbound.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="exceptevent.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="information.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+		<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="reqresp.xml">
+			<xi:fallback>
+				<!-- Do nothing -->
+			</xi:fallback>
+		</xi:include>
+	</part>
+	
+	<!-- Include the GNU FDL -->
+	<xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="../Common/fdl.xml">
+		<xi:fallback>
+			<!-- Do nothing -->
+		</xi:fallback>
+	</xi:include>
+	
+	<index type="dict-outbound" id="idx-evt-out">
+	 <title>Event dictionaries received from the IAL</title>
+	</index>
+	<index type="dict-inbound" id="idx-evt-in">
+	 <title>Event dictionaries sent to the IAL</title>
+	</index>
+	<index type="dict-reqresp" id="idx-evt-req">
+	 <title>Request/response dictionaries exchanged with the IAL</title>
+	</index>
+	<index id="idx-all"/>
+</book>

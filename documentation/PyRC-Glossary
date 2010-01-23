@@ -1,0 +1,10 @@
+Terms and definitions:
+
+IAL: IRC Abstraction Layer
+	This refers to the code in PyRC.ircAbstraction. References to specific
+	top-level calls generally refer to PyRC.ircAbstraction.ircInterface.
+	Any direct documentation references to code implemented under
+	PyRC.ircAbstraction.ircInterface warrants smacking the author, hard.
+	Really, find me and tell me to fix it; this is supposed to be easy to
+	work with, not something confusing.
+	

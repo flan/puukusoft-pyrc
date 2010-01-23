@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE networks [
+	<!ELEMENT networks (network*)>
+		<!ELEMENT network (name?, description?, addresses, profiles?,
+		                   channels?, commands?)>
+			<!ATTLIST network id ID #REQUIRED
+							  autoconnect (yes|no) #IMPLIED
+							  workerthreads CDATA #IMPLIED
+							  proxy CDATA #IMPLIED>
+			<!-- id must be lower-case -->
+			<!-- autoconnect: no -->
+			<!-- proxy: must be lower-case; 'off' disables -->
+			<!ELEMENT name (#PCDATA)> <!-- optional; displayed instead of id -->
+			<!ELEMENT description (#PCDATA)> <!-- optional -->
+			<!ELEMENT addresses (address+)>
+				<!ATTLIST addresses randomorder (yes|no) #IMPLIED> <!-- yes -->
+				<!ELEMENT address (url, port)>
+					<!ATTLIST address secure (yes|no) #IMPLIED
+					                  proxy CDATA #IMPLIED>
+					<!-- secure: no -->
+					<!-- proxy: must be lower-case; 'off' disables -->
+					<!ELEMENT url (#PCDATA)>
+					<!ELEMENT port (#PCDATA)>
+			<!ELEMENT profiles (profile*)>
+				<!ATTLIST profiles useall (yes|no) #REQUIRED> <!-- yes -->
+				<!ELEMENT profile (#PCDATA)>
+			<!ELEMENT channels (channel*)>
+				<!ELEMENT channel (#PCDATA)>
+]>
+<networks>
+	<network id="synirc" autoconnect="yes">
+		<name>synIRC</name>
+		<addresses randomorder="yes">
+			<address secure="yes">
+				<url>irc.synirc.org</url>
+				<port>7001</port>
+			</address>
+			<address secure="no">
+				<url>irc.synirc.net</url>
+				<port>6667</port>
+			</address>
+		</addresses>
+		<profiles useall="yes">
+			<profile>default</profile>
+		</profiles>
+		<channels>
+			<channel>#animesuki.os</channel>
+		</channels>
+	</network>
+</networks>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" 
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod">
+		%xinclude;
+]>
+
+<section id="conventions">
+	<title>Conventions</title>
+	<para>
+		<emphasis role="bold">Admonishments</emphasis>
+	</para>
+	
+	<note>
+		<para>Notes are used to provide additional information to supplement or provide details related to the topic being discussed.</para>
+	</note>
+	<tip>
+		<para>Tips are used to suggest easier or alternate ways of accomplishing a goal.</para>
+	</tip>
+	<caution>
+		<para>Cautions are used to ward readers away from potential problems or difficulties.</para>
+	</caution>
+	<warning>
+		<para>Warnings are used to prevent readers from making changes which could be difficult, if not impossible, to reverse.</para>
+	</warning>
+
+	<para>
+		<emphasis role="bold">References</emphasis>
+	</para>
+	<itemizedlist>
+		<listitem>
+			<para>References to other sections will look like <quote><link linkend="conventions">Conventions</link></quote>.</para>
+		</listitem>
+		<listitem>
+			<para>References to remote resources will look like <quote><ulink url="http://www.python.org">Python.org</ulink></quote>.</para>
+		</listitem>
+	</itemizedlist>
+	
+	<para>
+		<emphasis role="bold">Typographic conventions</emphasis>
+	</para>
+	<itemizedlist>
+		<listitem>
+			<para>Filenames and paths will use <filename>monospace</filename> type.</para>
+		</listitem>
+		<listitem>
+			<para>Commands to be entered at prompts will use <emphasis role="bold">bold</emphasis> type.</para>
+		</listitem>
+		<listitem>
+			<para>Elements to be clicked or selected in a user interface will use <emphasis role="bold">bold</emphasis> type.</para>
+		</listitem>
+		<listitem>
+			<para>When variables or parameters are contained within a paragraph, they will use <filename>monospace</filename> type.</para>
+		</listitem>
+	</itemizedlist>
+	
+	<para>
+		<emphasis role="bold">Navigation</emphasis>
+	</para>
+	<itemizedlist>
+		<listitem>
+			<para>Menu sequences will be displayed as follows:</para>
+			<para><emphasis role="underline">F</emphasis>ile -> <emphasis role="underline">O</emphasis>pen</para>
+		</listitem>
+		<listitem>
+			<para>Mouse actions shall assume a right-handed mouse configuration.</para>
+			<para>The terms <quote>click</quote> and <quote>double-click</quote> refer to using the left mouse button.</para>
+			<para>The term <quote>right-click</quote> refers to using the right mouse button.</para>
+			<para>The term <quote>middle-click</quote> refers to using the middle mouse button, pressing down on the scroll wheel, or pressing both the left and right buttons simultaneously, depending on available features of the mouse used.</para>
+		</listitem>
+		<listitem>
+			<para>Keyboard short-cut combinations will be displayed as follows:</para>
+				<para>Ctrl+N</para>
+				<para>Where the conventions for the <quote>Control</quote>, <quote>Shift</quote>, and <quote>Alternate</quote> keys will be Ctrl, Shift, and Alt, respectively, and shall mean the first key is to be held down while pressing the second key.</para>
+		</listitem>
+	</itemizedlist>
+	
+	<para>
+		<emphasis role="bold">Code conventions</emphasis>
+	</para>
+	<itemizedlist>
+		<listitem>
+			<para>Code and mark-up samples will be presented as follows:</para>
+			<programlisting>
+<![CDATA[
+import os
+import sys
+import types
+import shutil
+from xml.dom import Node
+from xml.dom.ext.reader.Sax import FromXmlFile
+
+#This manages plugins and handles the execution of events.
+import control.plugin
+#This is a general-purpose module for asynching functions that aren't part of an
+# independent thread.
+import control.asynch
+#This manages connections and plugin events.
+import ircAbstract.ircInterface
+]]>
+			</programlisting>
+		</listitem>
+		<listitem>
+			<para>Sometimes, lines of code or mark-up examples will be longer than the page width.
+			To avoid having them run off the page, the slash character, <quote>\</quote>, will be used to denote a soft line break.
+			This means that the code is, in reality, meant to be on one line, but for print formatting, it has been split across two or more lines.</para>
+		</listitem>
+	</itemizedlist>
+	
+	<note>
+		<para>Unless otherwise noted, a *nix operating environment will be assumed, and standard Xorg functions will be referenced.
+		Users of other operating systems are assumed to be familiar with their environment and able to interpret commands and paths to achieve the same results on their platforms.</para>
+	</note>
+</section>

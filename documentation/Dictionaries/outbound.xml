@@ -1,0 +1,2185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN" "http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+		<!ENTITY % xinclude SYSTEM "../Common/xinclude.mod"> %xinclude;
+]>
+
+<chapter id="dict-outbound">
+	<title>Outbound Event Dictionaries</title>
+	<para>
+		This section contains a listing of all Event Dictionaries sent from the
+		IAL. These are what plugins should listen for.
+	</para>
+	
+	<section id="evt-out-irc-channel-banlist">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Banlist</title>
+		<para>
+			This dictionary is received from the IAL when PyRC is informed of
+			a channel's banlist.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Banlist",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'banlist': <:tuple>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+banlist:
+	A tuple of tuples of the following format:
+	 (<banmask:unicode>, <ban_managing_server:unicode>, <unix_ban_time:int>).]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-close">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Close</title>
+		<para>
+			This dictionary is received from the IAL when PyRC leaves a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Close",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'message': <:unicode>,
+ 'kick': <:boolean>,
+ 'kicker': <:dict|None>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+message:
+	The string this event was generated to convey.
+kick:
+	True if PyRC was kicked out of the channel; False if PyRC parted.
+kicker:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who performed the kick, if a kick was
+	performed.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-created">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Created</title>
+		<para>
+			This dictionary is received from the IAL when PyRC is informed of
+			the creation time of a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Created",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'timestamp': <:int>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+timestamp:
+	The time the channel was created, expressed as a UNIX timestamp.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-information">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Information</title>
+		<para>
+			This dictionary is received from the IAL when PyRC is informed of
+			some property of a channel, or PyRC is informed that it does not
+			have sufficient privileges.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Created",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-invite">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Invite</title>
+		<para>
+			This dictionary is received from the IAL when PyRC is
+			invited to a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Invite",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel to which PyRC is being invited.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-join">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Join</title>
+		<para>
+			This dictionary is received from the IAL when PyRC successfully
+			joins a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Join",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'timestamp': <:int>,
+ 'topictime': <:int|None>,
+ 'topicwho': <:dict|None>,
+ 'channeldata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+timestamp:
+	The time the channel was created, expressed as a UNIX timestamp.
+topictime:
+	The time at which the topic was set, expressed as a UNIX timestamp, or None
+	if no topic has been set.
+topicwho:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who set the topic, or None if no topic	has
+	been set.
+channeldata:
+	A fully populated instance of the ]]><link linkend="inf-channel-data">Channel Data</link><![CDATA[ information dictionary.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-message">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Message</title>
+		<para>
+			This dictionary is received from the IAL when a user in a channel
+			says something.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-message-local">IRC Channel Message Local</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Message",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'message': <:unicode>,
+ 'action': <:bool>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+message:
+	The string this event was generated to convey.
+action:
+	True if this event represents an action.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-message-local">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Message Local</title>
+		<para>
+			This dictionary is received from the IAL when PyRC says something in
+			a channel.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-message">IRC Channel Message</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Message Local",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'message': <:unicode>,
+ 'action': <:bool>,
+ 'username': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+message:
+	The string this event was generated to convey.
+action:
+	True if this event represents an action.
+username:
+	The nickname of the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-modes">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Modes</title>
+		<para>
+			This dictionary is received from the IAL when a channel's mode
+			information is received.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-modes-update">IRC Channel Modes Update</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Modes",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'modestring': <:unicode>,
+ 'modestring_safe: <:unicode>,
+ 'modes': <:tuple>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+modestring:
+	A string that represents all modes currently set in the channel.
+modestringsafe:
+	A string that represents all modes currently set in the channel, minus
+	those that contain sensitive information, like passwords.
+modes:
+	A tuple containing all modes currently set in the channel.
+	Its elements may be single-character mode tokens, or tuples containing a
+	mode token and a parameter token.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-modes-update">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Modes Update</title>
+		<para>
+			This dictionary is received from the IAL when changes are made to a
+			channel's modes.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-modes">IRC Channel Modes</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Modes Update",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'changes': <:tuple>,
+ 'changestring': <:unicode>,
+ 'usermodes': <:dict>,
+ 'modestring': <:unicode>,
+ 'modestringsafe: <:unicode>,
+ 'modes': <:tuple>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+changes:
+	A tuple of channel modes that were changed in this operation. Its
+	elements have the following form:
+	 (<mode:unicode>, <parameter:unicode|None>, <granted:bool>)
+changestring:
+	A string containing a list of the modes added by this event and a list
+	of the modes removed by this event, separated by a '|' character.
+usermodes:
+	A dictionary of user modes that were changed in this operation. Its
+	elements have the following form:
+	 {(granted:bool, <mode:unicode>): <affected_users:list>}
+modestring:
+	A string that represents all modes currently set in the channel.
+modestringsafe:
+	A string that represents all modes currently set in the channel, minus
+	those that contain sensitive information, like passwords.
+modes:
+	A tuple containing all modes currently set in the channel.
+	Its elements may be single-character mode tokens, or tuples containing a
+	mode token and a parameter token.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-names">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Names</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server sends
+			PyRC a list of users in a channel.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Names",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'users': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+users:
+	A dictionary of ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionaries,
+	keyed by username.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-topic">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Topic</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server sends
+			PyRC the current topic of a channel.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-topic-information">IRC Channel Topic Information</link>
+	 - <link linkend="evt-out-irc-channel-topic-new">IRC Channel Topic New</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Topic",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'topic': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+topic:
+	The current topic of the channel.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-topic-information">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Topic Information</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server sends
+			PyRC additional information about the current topic of a channel.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-topic">IRC Channel Topic</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Topic Information",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'topictime': <:int>,
+ 'topicwho': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+topictime:
+	The time at which the topic was set, expressed as a UNIX timestamp.
+topicwho:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who set the topic.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-topic-new">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel Topic New</title>
+		<para>
+			This dictionary is received from the IAL when the topic of a channel
+			changes.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-topic">IRC Channel Topic</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel Topic New",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'topic': <:unicode>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+topic:
+	The new topic of the channel.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-user-join">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel User Join</title>
+		<para>
+			This dictionary is received from the IAL when another user joins a
+			channel.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-user-part">IRC Channel User Part</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel User Join",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-channel-user-part">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Channel</primary>
+		</indexterm>
+		<title>IRC Channel User Part</title>
+		<para>
+			This dictionary is received from the IAL when another user parts a
+			channel.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-channel-user-join">IRC Channel User Join</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Channel User Part",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channel': <:unicode>,
+ 'message': <:unicode>,
+ 'userdata': <:dict>,
+ 'kick': <:bool>,
+ 'kicker': <:dict|None>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channel:
+	The name of the channel where this event originated.
+message:
+	The string this event was generated to convey.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.
+	
+	Note: For netsplits, ident and hostmask information may be unavailable if not previously gathered.
+kick:
+	True if the user was kicked; False if the user parted normally.
+kicker:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who performed the kick, if a kick was
+	performed.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-ctcp-request">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - CTCP</primary>
+		</indexterm>
+		<title>IRC CTCP Request</title>
+		<para>
+			This dictionary is received from the IAL when another user sends a
+			CTCP request to PyRC.
+		</para>
+		<para>
+			PING requests generate <link linkend="evt-in-irc-ping">IRC Ping</link> events.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-in-irc-ctcp-response">IRC CTCP Response</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "CTCP Request",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'target': <:unicode>,
+ 'event': <:unicode>,
+ 'data': <:unicode|None>,
+ 'handled': <:bool>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+target:
+	The target of this request, either PyRC or a channel.
+event:
+	The token used to identify the nature of this CTCP event.
+data:
+	Any string data associated with this event.
+handled:
+	True if this event has already been addressed.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-ctcp-response">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - CTCP</primary>
+		</indexterm>
+		<title>IRC CTCP Response</title>
+		<para>
+			This dictionary is received from the IAL when another user sends a
+			reply to a request made by PyRC.
+		</para>
+		<para>
+			PING responses generate <link linkend="evt-out-irc-pong">IRC Pong</link> events.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-in-irc-ctcp-request">IRC CTCP Request</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "CTCP Response",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'event': <:unicode>,
+ 'data': <:unicode|None>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+event:
+	The token used to identify the nature of this CTCP event.
+data:
+	Any string data associated with this event.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-ison-response">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Services</primary>
+		</indexterm>
+		<title>IRC IsOn Response</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server informs
+			PyRC about the online/offline status of another user.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-in-irc-ison-request">IRC IsOn Request</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "IsOn Response",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'ison': <:bool>,
+ 'username': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+ison:
+	True if the user is online; False otherwise.
+username:
+	The nickname of the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-object-information">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Services</primary>
+		</indexterm>
+		<title>IRC Object Information</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server informs
+			PyRC about some properties related to an entity affected by services
+			or modes.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Object Information",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'message': <:unicode>,
+ 'object': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+message:
+	The string this event was generated to convey.
+target:
+	The name of the entity described by this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-ping">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Ping</title>
+		<para>
+			This dictionary is received from the IAL when another user, or an
+			IRC server, PINGs PyRC.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Ping",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'data': <:unicode>,
+ 'userdata': <:dict|None>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+data:
+	Any string data associated with this event.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event, or None if the
+	event came from an IRC server.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-ping-timeout">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Ping Timeout</title>
+		<para>
+			This dictionary is received from the IAL when another user, or an
+			IRC server, fails to respond to a PING sent by PyRC.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Ping Timeout",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'username': <:unicode|None>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+username:
+	The nickname of the user who triggered this event, or None if the event
+	came from an IRC server.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-ping-timeout-check">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Ping Timeout Check</title>
+		<para>
+			This dictionary is received from the IAL when PyRC sends a PING to
+			an IRC server to ensure that the connection is still active.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Ping Timeout Check",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-pong">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Pong</title>
+		<para>
+			This dictionary is received from the IAL when another user, or an
+			IRC server, replies to a PING from PyRC.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Pong",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'pingtime': <:float>,
+ 'userdata': <:dict|None>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+pingtime:
+	The time elapsed since PyRC sent the PING that led to this PONG, expressed
+	in seconds.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event, or None if the
+	response came from an IRC server.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-raw-command">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Raw Command</title>
+		<para>
+			This dictionary is received from the IAL when PyRC sends a string to
+			an IRC server.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-in-irc-raw-command">IRC Raw Command</link>
+	 - <link linkend="evt-out-irc-raw-event">IRC Raw Event</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Raw Command",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'data': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+data:
+	Any string data associated with this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-raw-event">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC Raw Event</title>
+		<para>
+			This dictionary is received from the IAL when PyRC gets a string
+			from an IRC server.
+			<literallayout>
+	See also:
+	 - <link linkend="evt-out-irc-raw-command">IRC Raw Command</link>
+			</literallayout>
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Raw Event",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'data': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+data:
+	Any string data associated with this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-user-logon">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC User Logon</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server informs
+			PyRC about the login status of a user.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "User Logon",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'type': <:unicode>,
+ 'timestamp': <:int>,
+ 'data': <:unicode>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+type:
+	A token used to identify the event being described. It may be one of
+	["logon", "logoff", "nowon", "nowoff"].
+timestamp:
+	The time at which the event being described occurred, expressed as a UNIX
+	timestamp.
+data:
+	Any string data associated with this event.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-user-modes">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>IRC User Modes</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server informs
+			PyRC of its current modes.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "User Modes",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'modes': <:tuple>,
+ 'changes': <:tuple>,
+ 'modestring': <:unicode>,
+ 'changestring': <:unicode>,
+ 'username': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+modes:
+	A tuple containing all modes currently set on PyRC.
+	Its elements may be single-character mode tokens, or tuples containing a
+	mode token and a parameter token.
+changes:
+	A tuple of channel modes that were changed in this operation. Its
+	elements have the following form:
+	 (<mode:unicode>, <parameter:unicode|None>, <granted:bool>)
+modestring:
+	A string that represents all modes currently set on PyRC.
+changestring:
+	A string that represents the modes that changed during this event.
+username:
+	The name used by PyRC at the time when these modes were set.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-user-notice">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC User Notice</title>
+		<para>
+			This dictionary is received from the IAL when PyRC receives a
+			NOTICE event from another user.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "User Notice",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'message': <:unicode>,
+ 'target': <:unicode>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+message:
+	The string this event was generated to convey.
+target:
+	The target of this request, either PyRC or a channel.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-user-nickname-change">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC User Nickname Change</title>
+		<para>
+			This dictionary is received from the IAL when PyRC observes a user
+			changing its nickname.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "User Nickname Change",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'nickname': <:unicode>,
+ 'channels': <:list>,
+ 'islocal': <:bool>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+nickname:
+	The nickname being assigned to the user.
+channels:
+	A list of the names of all channels that are affected by this event.
+islocal:
+	True if PyRC's nickname is changing; False otherwise.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-user-private-message">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC User Private Message</title>
+		<para>
+			This dictionary is received from the IAL when a user says something
+			directly to PyRC.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Private Message",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'message': <:unicode>,
+ 'action': <:bool>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+message:
+	The string this event was generated to convey.
+action:
+	True if this event represents an action.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-user-private-message-local">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC User Private Message Local</title>
+		<para>
+			This dictionary is received from the IAL PyRC says something
+			directly to a user.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Private Message Local",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'target': <:unicode>,
+ 'message': <:unicode>,
+ 'action': <:bool>,
+ 'username': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+target:
+	The target of this event.
+message:
+	The string this event was generated to convey.
+action:
+	True if this event represents an action.
+username:
+	The nickname of the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-user-quit">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC User Quit</title>
+		<para>
+			This dictionary is received from the IAL when a user quits an IRC
+			server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "User Quit",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'message': <:unicode>,
+ 'channels': <:list>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+message:
+	The string this event was generated to convey.
+channels:
+	A list of the names of all channels that are affected by this event.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-who-fail">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC Who Fail</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server informs
+			PyRC that a WHO or WHOIS query failed.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Who Fail",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'username': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+username:
+	The nickname of the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-who-response">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC Who Response</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server provides
+			PyRC with a response to a WHO query.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Who Response",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'channels': <:tuple|None>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+channels:
+	A list of the names of channels this user is known to be in, if any.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-whois-response">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC WhoIs Response</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server provides
+			PyRC with a response to a WHOIS query.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "WhoIs Response",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'ircserver': <:unicode|None>,
+ 'servername': <:unicode|None>
+ 'address': <:unicode|None>,
+ 'channels': <:tuple|None>,
+ 'timeinfo': <:unicode|None>,
+ 'modes': <:unicode|None>,
+ 'bot': <:unicode|None>,
+ 'chanop': <:unicode|None>,
+ 'help': <:unicode|None>,
+ 'operator': <:unicode|None>,
+ 'registered': <:tuple|None>,
+ 'secure': <:unicode|None>,
+ 'data': <:tuple|None>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+ircserver:
+	The URL of the IRC server that the user is connected to, if known.
+servername:
+	The name of the IRC server that the user is connected to, if known.
+address:
+	The user's hostmask (may be FQDNS) and possibly IP address, if known.
+channels:
+	A list of the names of channels this user is known to be in, if any.
+timeinfo:
+	A tuple containing information about the user's time spent on the server.
+	This tuple has the following form:
+		(<seconds_idle:int>, <UNIX_login_time:int>, <server_text:unicode>)
+modes:
+	A description of the modes set on the user.
+ bot:
+	A string explaining that the user is considered a bot, if applicable.
+chanop:
+	A string explaining that the user is a chanop, if applicable.
+help:
+	A string explaining that the user is available for help, if applicable.
+operator:
+	A string explaining that the user is an IRC operator, if applicable.
+registered:
+	A tuple of strings explaining properties that the user has registered on the
+	IRC server.
+secure:
+	A string explaining that the user has a secure connection, if applicable.
+	Some servers might provide IP information.
+data:
+	A tuple of strings explaining additional properties about the user.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-whowas-fail">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC WhoWas Fail</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server informs
+			PyRC that a WHOWAS query failed.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "WhoWas Fail",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'username': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+username:
+	The nickname of the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-irc-whowas-response">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - User</primary>
+		</indexterm>
+		<title>IRC WhoWas Response</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server provides
+			PyRC with a response to a WHOWAS query.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "WhoWas Response",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'ircserver': <:unicode>,
+ 'timestring': <:unicode>
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+ircserver:
+	The URL of the IRC server that the user ws connected to.
+timestring:
+	A string containing the timestamp at which the server last saw the user.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-implement-me">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Implement Me</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server sends
+			PyRC an event that has not yet been implemented.
+		</para>
+		<para>
+			If you see this event, please make a note of the dictionary's
+			contents, where you encountered it, and the steps needed to
+			reproduce it.
+		</para>
+		<para>
+			After that, please check with the PyRC development community to find
+			out if the issue has already been addressed. If it hasn't, let one
+			of the developers know, and we will address it right away.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Implement Me",
+ 'details': <:unicode>,
+ 'raw': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+details:
+	A string containing any information that seems to be related to this event,
+	such as the RFC 1459 spec name, or the identifying key token.
+raw:
+	An instance of the ]]><link linkend="evt-out-irc-raw-event">IRC Raw Event</link><![CDATA[ event dictionary that represents
+	this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-initialised">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Initialised</title>
+		<para>
+			This dictionary is received from the IAL once PyRC has finished
+			loading.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Initialised"
+}
+
+eventname:
+	The IAL-recognized name of this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-plugin-crash">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Crash</title>
+		<para>
+			This dictionary is received from the IAL if a plugin generates an
+			error while processing an event dictionary.
+		</para>
+		<para>
+			If you see this event, you should attempt to contact the plugin's
+			author with a full copy of this dictionary, as well as information
+			about where this dictionary was encountered, and any steps necessary
+			to reproduce it.
+		</para>
+		<para>
+			These errors will not fix themselves, and it is quite possible that
+			the plugin author does not know that there is a problem at all, so
+			it is very important that you *politely* bring this issue to their
+			attention.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Crash",
+ 'module': <:unicode>,
+ 'trace': <:tuple>,
+ 'pluginname': <:unicode>,
+ 'pluginversion': <:unicode>,
+ 'event': <:dict>,
+ 'logfile': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.
+trace:
+	A tuple of strings containing the full stack trace of this crash.
+pluginname:
+	A string containing the author-given name of the plugin.
+pluginversion:
+	A string containing the author-given version of the plugin.
+event:
+	The dictionary that caused the plugin to crash.
+logfile:
+	A string identifying the path at which this event was logged or a reason why
+	logging failed if the file was not successfully written.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-plugin-disable">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Disable</title>
+		<para>
+			This dictionary is received from the IAL if a plugin is disabled.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Disable",
+ 'module': <:unicode>,
+ 'pluginname': <:unicode>,
+ 'pluginversion': <:unicode>
+}
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.
+pluginname:
+	A string containing the author-given name of the plugin.
+pluginversion:
+	A string containing the author-given version of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-plugin-enable">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Enable</title>
+		<para>
+			This dictionary is received from the IAL if a plugin is enabled.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Enable",
+ 'module': <:unicode>,
+ 'pluginname': <:unicode>,
+ 'pluginversion': <:unicode>
+}
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.
+pluginname:
+	A string containing the author-given name of the plugin.
+pluginversion:
+	A string containing the author-given version of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-plugin-load">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Load</title>
+		<para>
+			This dictionary is received from the IAL if a plugin is loaded.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Load",
+ 'module': <:unicode>,
+ 'pluginname': <:unicode>,
+ 'pluginversion': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.
+pluginname:
+	A string containing the author-given name of the plugin.
+pluginversion:
+	A string containing the author-given version of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-plugin-load-error">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Load Error</title>
+		<para>
+			This dictionary is received from the IAL if a problem occurs while
+			loading a plugin.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Load Error",
+ 'module': <:unicode>,
+ 'trace': details,
+ 'logfile': log_file
+}
+	
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.
+trace:
+	A tuple of strings containing the full stack trace of this crash.
+logfile:
+	A string identifying the path at which this event was logged or a reason why
+	logging failed if the file was not successfully written.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-plugin-reload">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Reload</title>
+		<para>
+			This dictionary is received from the IAL if a plugin is reloaded.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Reload",
+ 'module': <:unicode>,
+ 'pluginname': <:unicode>,
+ 'pluginversion': <:unicode>
+}
+eventname:
+	The IAL-recognized name of this event.
+module:
+	The module name, or directory subpath, of the plugin.
+pluginname:
+	A string containing the author-given name of the plugin.
+pluginversion:
+	A string containing the author-given version of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-plugin-status">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Plugin Status</title>
+		<para>
+			This dictionary is received from the IAL when a plugin attempts to
+			provide information to the user. This dictionary is only of interest
+			to UIs and logging plugins.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Plugin Status",
+ 'message': <:unicode>,
+ 'pluginname': <:unicode>,
+ 'pluginversion': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+message:
+	The string this event was generated to convey.
+pluginname:
+	A string containing the author-given name of the plugin.
+pluginversion:
+	A string containing the author-given version of the plugin.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-processing-error">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Processing Error</title>
+		<para>
+			This dictionary is received from the IAL if an internal error is
+			generated while processing a dictionary.
+		</para>
+		<para>
+			If you see this event and you are attempting to write a plugin, you
+			should try to make sure that your code is not responsible. The most
+			likely cause of this error is a plugin sending non-spec dictionaries
+			to the IAL.
+		</para>
+		<para>
+			If you are using other plugins and you suspect that one of them
+			might be the cause, try to contact that plugin's author with a copy
+			of this dictionary and all relevant information.
+		</para>
+		<para>
+			If you are absolutely certain that the problem is due to a problem
+			within PyRC, submit a copy of this dictionary, as well as any other
+			relevant information, to the PyRC developer community, and we will
+			address it as soon as possible.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Processing Error",
+ 'trace': <:tuple>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+trace:
+	A tuple of strings containing the full stack trace of this crash.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-status">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Status</title>
+		<para>
+			This dictionary is received from the IAL when PyRC attempts to
+			provide information to the user.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "PyRC Status",
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-pyrc-time-signal">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - PyRC</primary>
+		</indexterm>
+		<title>PyRC Time Signal</title>
+		<para>
+			This dictionary is received from the IAL every five minutes.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Time Signal",
+ 'timestamp': <:float>,
+ 'scale': <:int>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+timestamp:
+	The time this event was generated, expressed as a UNIX timestamp.
+scale:
+	An integer used to signify the interval of this event:
+		0: five-munite interval
+		1: fifteen-minute interval
+		2: thirty-minute interval
+		3: one-hour interval
+		4: one-day interval
+		
+	These intervals are relative to the system clock, not the time at which
+	PyRC was started.
+	
+	Scenario:
+		If you want to have a plugin save data every half hour, watch for a
+		'scale' value >= 2, not = 2. If you catch only 2, you will miss events
+		sent on each hour and at midnight.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-connection-error">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Connection Error</title>
+		<para>
+			This dictionary is received from the IAL if PyRC fails to establish
+			a connection to an IRC server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Connection Error",
+ 'irccontext': <:int>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+message:
+	A string describing the reason why the connection failed.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-connection-success">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Connection Success</title>
+		<para>
+			This dictionary is received from the IAL if PyRC successfully 
+			connects to an IRC server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Connection Success",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'address': <:unicode>,
+ 'port': <:int>,
+ 'username': <:unicode>,
+ 'ident': <:unicode>,
+ 'realname': <:unicode>,
+ 'password': <:unicode|None>,
+ 'ssl': <:bool>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+address:
+	The URL of the IRC server to which a connection was established.
+port:
+	The port on the IRC server to which a connection was established.
+username:
+	The nickname PyRC used to authenticate to the IRC network.
+ident:
+	The ident string PyRC used to authenticate to the IRC network.
+realname:
+	The real name string PyRC used to authenticate to the IRC network.
+password:
+	The password used to connect to the IRC network, if any.
+ssl:
+	True if a secure connection was established.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-disconnection">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Disconnection</title>
+		<para>
+			This dictionary is received from the IAL if PyRC loses its
+			connection to an IRC server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Disconnection",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'message': <:unicode|None>,
+ 'localcause': <:bool>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+message:
+	A string describing the reason why the connection was lost.
+localcause:
+	True if PyRC broke the connection, which means a reconnection should not be
+	attempted.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-information">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Information (partially implemented)</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server informs
+			PyRC of its properties and capabilities.
+		</para>
+		<para>
+			All information provided by this dictionary can be safely ignored
+			without affecting normal operation. PyRC will automatically ensure
+			that all communication conforms to the server's specifications.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Information",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'address': <:unicode>,
+ 'version': <:unicode>,
+ 'usermodes': <:unicode>,
+ 'channelmodes': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+address:
+	A string identifying the address of the server.
+version:
+	A string identifying the version of the server's software.
+usermodes:
+	A string that contains a list of all modes that can be set on users hosted
+	by this server.
+channelmodes:
+	A string that contains a list of all modes that can be set on channels
+	hosted by this server.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-kill">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Kill</title>
+		<para>
+			This dictionary is received from the IAL if PyRC is killed by the
+			IRC server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Kill",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'username': <:unicode>,
+ 'message': <:unicode>,
+ 'userdata': <:dict>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+username:
+	The target of this kill.
+message:
+	A string describing the reason why the connection was lost.
+userdata:
+	An instance of the ]]><link linkend="inf-user-data">User Data</link><![CDATA[ information dictionary that contains all
+	information known about the user who triggered this event.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-message">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Message</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server
+			generates an event that is purely informational.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Message",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-motd">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server MOTD</title>
+		<para>
+			This dictionary is received from the IAL when an IRC server
+			sends PyRC its Message of the Day (MOTD).
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server MOTD",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'motd': <:tuple>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+motd:
+	A list of strings that make up the server's Message of the Day.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-protocol-error">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Protocol Error</title>
+		<para>
+			This dictionary is received from the IAL if an IRC server sends PyRC
+			a malformed string.
+		</para>
+		<para>
+			If you see an instance of this dictionary, please inform the PyRC
+			development team.
+		</para>
+		<para>
+			Let us know where you encountered it, how to reproduce it, and
+			provide a copy of the message.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Protocol Error",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'message': <:string>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+message:
+	A string that contains the problematic string and a description of the
+	problem that occurred.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-reconnection-error">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Reconnection Error</title>
+		<para>
+			This dictionary is received from the IAL if PyRC fails to 
+			re-establish a connection to an IRC server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Reconnection Error",
+ 'irccontext': <:int>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+message:
+	A string describing the reason why the reconnection failed.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-reconnection-success">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Reconnection Success</title>
+		<para>
+			This dictionary is received from the IAL if PyRC successfully
+			reconnects to an IRC server.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Reonnection Success",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'address': <:unicode>,
+ 'port': <:int>,
+ 'username': <:unicode>,
+ 'ident': <:unicode>,
+ 'realname': <:unicode>,
+ 'password': <:unicode|None>,
+ 'ssl': <:bool>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+address:
+	The URL of the IRC server to which a connection was established.
+port:
+	The port on the IRC server to which a connection was established.
+username:
+	The nickname PyRC used to authenticate to the IRC network.
+ident:
+	The ident string PyRC used to authenticate to the IRC network.
+realname:
+	The real name string PyRC used to authenticate to the IRC network.
+password:
+	The password used to connect to the IRC network, if any.
+ssl:
+	True if a secure connection was established.]]>
+			</programlisting>
+		</para>
+	</section>
+	
+	<section id="evt-out-server-welcome">
+		<indexterm type="dict-outbound">
+			<primary>Dictionaries - Server</primary>
+		</indexterm>
+		<title>Server Welcome</title>
+		<para>
+			This dictionary is received from the IAL when PyRC is fully
+			authenticated by an IRC server.
+		</para>
+		<para>
+			This event indicates that data may now be sent to the IRC server,
+			but it is still possible that PyRC may be kicked or banned by server
+			policy or a scan.
+			<programlisting>
+<![CDATA[{
+ 'eventname': "Server Welcome",
+ 'irccontext': <:int>,
+ 'networkname': <:unicode>,
+ 'message': <:unicode>
+}
+
+eventname:
+	The IAL-recognized name of this event.
+irccontext:
+	The session-unique ID of the connection that sent this event.
+networkname:
+	The name of the IRC network that caused this event.
+message:
+	The string this event was generated to convey.]]>
+			</programlisting>
+		</para>
+	</section>
+</chapter>
