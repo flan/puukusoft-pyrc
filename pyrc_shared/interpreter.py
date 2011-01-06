@@ -207,7 +207,7 @@ def _generateInterpreters():
 		})
 	interpreters['plugin'] = _plugin
 	
-	def _quit(commmand, irc_context, focus):
+	def _quit(command, irc_context, focus):
 		match = re.compile(r"^QUIT(?: (.+))?", command, re.I)
 		if not match:
 			return (ENUM_EXECUTION_CODES.SYNTAX_ERROR,
