@@ -11,16 +11,16 @@ Legal
  Copyright (c) Neil Tallim, 2002-2016
  
  This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
+ it under the terms of the GNU Lesser General Public License as published by
  the Free Software Foundation, either version 3 of the License, or
  (at your option) any later version.
  
  This program is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+ GNU Lesser General Public License for more details.
  
- You should have received a copy of the GNU General Public License
+ You should have received a copy of the GNU Lesser General Public License
  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 """
 import collections
@@ -1631,7 +1631,7 @@ class Session(object):
         """
         This function evaluates all equations in this session's batch queue.
         
-        It returns information abotut he variables used to perform the
+        It returns information about the variables used to perform the
         computations and the results of each equation.
                     
         @rtype: tuple
